@@ -1,6 +1,7 @@
 package io.github.agpsl.credit_application_system.entity
 
 import jakarta.persistence.*
+import java.math.BigDecimal
 
 @Entity
 data class Customer(
@@ -19,6 +20,9 @@ data class Customer(
 
     @Column(nullable = false)
     var email: String = "",
+
+    @Column(nullable = false)
+    val income: BigDecimal = BigDecimal.ZERO,
 
     @Column(nullable = false)
     var password: String = "",
