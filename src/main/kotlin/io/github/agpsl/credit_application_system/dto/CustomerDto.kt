@@ -1,4 +1,4 @@
-package dto
+package io.github.agpsl.credit_application_system.dto
 
 import io.github.agpsl.credit_application_system.entity.Address
 import io.github.agpsl.credit_application_system.entity.Customer

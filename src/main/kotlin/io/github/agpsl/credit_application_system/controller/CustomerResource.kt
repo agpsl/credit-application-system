@@ -1,8 +1,8 @@
-package controller
+package io.github.agpsl.credit_application_system.controller
 
-import dto.CustomerDto
-import dto.CustomerUpdateDto
-import dto.CustomerView
+import io.github.agpsl.credit_application_system.dto.CustomerDto
+import io.github.agpsl.credit_application_system.dto.CustomerUpdateDto
+import io.github.agpsl.credit_application_system.dto.CustomerView
 import io.github.agpsl.credit_application_system.service.impl.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -34,7 +34,8 @@ class CustomerResource(
 
     @PatchMapping("/{id}")
     fun updateCustomer(@PathVariable id: Long,
-                       @RequestBody customerUpdateDto: CustomerUpdateDto): ResponseEntity<CustomerView> {
+                       @RequestBody customerUpdateDto: CustomerUpdateDto
+    ): ResponseEntity<CustomerView> {
         val customer = this.customerService.findById(id)
         val customerToUpdate = customerUpdateDto.toEntity(customer)
         val customerUpdated = this.customerService.save(customerToUpdate)

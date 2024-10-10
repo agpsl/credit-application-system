@@ -1,8 +1,8 @@
-package controller
+package io.github.agpsl.credit_application_system.controller
 
-import dto.CreditDto
-import dto.CreditView
-import dto.CreditViewList
+import io.github.agpsl.credit_application_system.dto.CreditDto
+import io.github.agpsl.credit_application_system.dto.CreditView
+import io.github.agpsl.credit_application_system.dto.CreditViewList
 import io.github.agpsl.credit_application_system.service.impl.CreditService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
