@@ -4,6 +4,8 @@ import dto.CustomerDto
 import dto.CustomerUpdateDto
 import dto.CustomerView
 import io.github.agpsl.credit_application_system.service.impl.CustomerService
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -12,26 +14,32 @@ class CustomerResource(
     private val customerService: CustomerService
 ){
     @PostMapping
-    fun saveCustomer(@RequestBody customerDto: CustomerDto): String {
+    fun saveCustomer(@RequestBody customerDto: CustomerDto): ResponseEntity<String> {
         val savedCustomer = customerService.save(customerDto.toEntity())
-        return "Customer ${savedCustomer.email} saved!"
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body("Customer ${savedCustomer.email} saved!")
     }
 
     @GetMapping("/{id}")
-    fun findById (@PathVariable id: Long): CustomerView {
+    fun findById (@PathVariable id: Long): ResponseEntity<CustomerView> {
         val customer = customerService.findById(id)
-        return CustomerView(customer)
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(CustomerView(customer))
     }
 
     @DeleteMapping("/{id}")
     fun deleteCustomer(@PathVariable id: Long) = customerService.delete(id)
 
     @PatchMapping("/{id}")
-    fun updateCustomer(@RequestParam(value = "customerId") id: Long,
-                       @RequestBody customerUpdateDto: CustomerUpdateDto): CustomerView {
+    fun updateCustomer(@PathVariable id: Long,
+                       @RequestBody customerUpdateDto: CustomerUpdateDto): ResponseEntity<CustomerView> {
         val customer = this.customerService.findById(id)
         val customerToUpdate = customerUpdateDto.toEntity(customer)
         val customerUpdated = this.customerService.save(customerToUpdate)
-        return CustomerView(customerUpdated)
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(CustomerView(customerUpdated))
     }
 }
