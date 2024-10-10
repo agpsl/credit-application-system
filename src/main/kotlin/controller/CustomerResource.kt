@@ -1,11 +1,9 @@
 package controller
 
 import dto.CustomerDto
+import dto.CustomerView
 import io.github.agpsl.credit_application_system.service.impl.CustomerService
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/customer")
@@ -18,4 +16,9 @@ class CustomerResource(
         return "Customer ${savedCustomer.email} saved!"
     }
 
+    @GetMapping("/{id}")
+    fun findById (@PathVariable id: Long): CustomerView {
+        val customer = customerService.findById(id)
+        return CustomerView(customer)
+    }
 }
