@@ -8,6 +8,7 @@ import org.springframework.validation.ObjectError
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
 
 @RestControllerAdvice
@@ -40,6 +41,30 @@ class RestExceptionHandler {
                 status = HttpStatus.CONFLICT.value(),
                 details = mutableMapOf("Data Access Exception" to "Failed do execute query")
             ), HttpStatus.CONFLICT
+        )
+    }
+
+    @ExceptionHandler(BusinessException::class)
+    fun handleValidException(ex: BusinessException): ResponseEntity<ExceptionDetail> {
+        return ResponseEntity(
+            ExceptionDetail(
+                title = "Bad request. Consult the docs",
+                timestamp = LocalDateTime.now(),
+                status = HttpStatus.BAD_REQUEST.value(),
+                details = mutableMapOf("Business Exception" to ex.message)
+            ), HttpStatus.BAD_REQUEST
+        )
+    }
+
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleValidException(ex: IllegalArgumentException): ResponseEntity<ExceptionDetail> {
+        return ResponseEntity(
+            ExceptionDetail(
+                title = "Bad request. Consult the docs",
+                timestamp = LocalDateTime.now(),
+                status = HttpStatus.BAD_REQUEST.value(),
+                details = mutableMapOf("Illegal Argument" to ex.message)
+            ), HttpStatus.BAD_REQUEST
         )
     }
 }
