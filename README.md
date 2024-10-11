@@ -47,6 +47,6 @@ Implemente as regras de negócio a seguir para a solicitação de empréstimo:
 
 No Terminal/Console:
 
-  1. Faça um clone do projeto na sua máquina: git clone github.com/agpsl/credit-application-system.git
-  2. Entre na pasta raiz do projeto: cd
-  3. Execute o comando: ./gradlew bootrun
+  1. Faça um clone do projeto na sua máquina: `git clone https://github.com/agpsl/credit-application-system.git`
+  2. Entre na pasta raiz do projeto: `cd credit-application-system`
+  3. Execute o comando: `./gradlew bootrun`
