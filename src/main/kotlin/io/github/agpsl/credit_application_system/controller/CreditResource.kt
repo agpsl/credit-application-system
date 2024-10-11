@@ -4,6 +4,7 @@ import io.github.agpsl.credit_application_system.dto.CreditDto
 import io.github.agpsl.credit_application_system.dto.CreditView
 import io.github.agpsl.credit_application_system.dto.CreditViewList
 import io.github.agpsl.credit_application_system.service.impl.CreditService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -22,7 +23,7 @@ class CreditResource(
     private val creditService: CreditService
 ) {
     @PostMapping
-    fun save(@RequestBody creditDto: CreditDto): ResponseEntity<String> {
+    fun save(@RequestBody @Valid creditDto: CreditDto): ResponseEntity<String> {
         val credit = creditService.save(creditDto.toEntity())
         return ResponseEntity
             .status(HttpStatus.CREATED)

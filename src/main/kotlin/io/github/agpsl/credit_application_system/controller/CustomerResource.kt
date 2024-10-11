@@ -4,6 +4,7 @@ import io.github.agpsl.credit_application_system.dto.CustomerDto
 import io.github.agpsl.credit_application_system.dto.CustomerUpdateDto
 import io.github.agpsl.credit_application_system.dto.CustomerView
 import io.github.agpsl.credit_application_system.service.impl.CustomerService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -14,7 +15,7 @@ class CustomerResource(
     private val customerService: CustomerService
 ){
     @PostMapping
-    fun saveCustomer(@RequestBody customerDto: CustomerDto): ResponseEntity<String> {
+    fun saveCustomer(@RequestBody @Valid customerDto: CustomerDto): ResponseEntity<String> {
         val savedCustomer = customerService.save(customerDto.toEntity())
         return ResponseEntity
             .status(HttpStatus.OK)
@@ -34,7 +35,7 @@ class CustomerResource(
 
     @PatchMapping("/{id}")
     fun updateCustomer(@PathVariable id: Long,
-                       @RequestBody customerUpdateDto: CustomerUpdateDto
+                       @RequestBody @Valid customerUpdateDto: CustomerUpdateDto
     ): ResponseEntity<CustomerView> {
         val customer = this.customerService.findById(id)
         val customerToUpdate = customerUpdateDto.toEntity(customer)
