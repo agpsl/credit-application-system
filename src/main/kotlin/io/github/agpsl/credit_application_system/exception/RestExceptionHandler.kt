@@ -1,5 +1,6 @@
 package io.github.agpsl.credit_application_system.exception
 
+import org.springframework.dao.DataAccessException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.FieldError
@@ -27,6 +28,18 @@ class RestExceptionHandler {
                 status = HttpStatus.BAD_REQUEST.value(),
                 details = errors
             ), HttpStatus.BAD_REQUEST
+        )
+    }
+
+    @ExceptionHandler(DataAccessException::class)
+    fun handleValidException(ex: DataAccessException): ResponseEntity<ExceptionDetail> {
+        return ResponseEntity(
+            ExceptionDetail(
+                title = "Bad request. Consult the docs",
+                timestamp = LocalDateTime.now(),
+                status = HttpStatus.CONFLICT.value(),
+                details = mutableMapOf("Data Access Exception" to "Failed do execute query")
+            ), HttpStatus.CONFLICT
         )
     }
 }
